@@ -1,0 +1,290 @@
+{
+    "definition": {
+        "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+        "actions": {
+            "Delay": {
+                "inputs": {
+                    "interval": {
+                        "count": 5,
+                        "unit": "Minute"
+                    }
+                },
+                "runAfter": {
+                    "Send_message": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Wait"
+            },
+            "Delay_2": {
+                "inputs": {
+                    "interval": {
+                        "count": 5,
+                        "unit": "Minute"
+                    }
+                },
+                "runAfter": {
+                    "Send_message_2": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Wait"
+            },
+            "Delay_3": {
+                "inputs": {
+                    "interval": {
+                        "count": 4,
+                        "unit": "Minute"
+                    }
+                },
+                "runAfter": {
+                    "Send_message_3": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Wait"
+            },
+            "Delay_4": {
+                "inputs": {
+                    "interval": {
+                        "count": 1,
+                        "unit": "Minute"
+                    }
+                },
+                "runAfter": {
+                    "Send_message_4": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Wait"
+            },
+            "Delay_5": {
+                "inputs": {
+                    "interval": {
+                        "count": 5,
+                        "unit": "Minute"
+                    }
+                },
+                "runAfter": {
+                    "Send_message_5": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Wait"
+            },
+            "Delay_6": {
+                "inputs": {
+                    "interval": {
+                        "count": 4,
+                        "unit": "Minute"
+                    }
+                },
+                "runAfter": {
+                    "Send_message_6": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Wait"
+            },
+            "Send_message": {
+                "inputs": {
+                    "body": {
+                        "ContentData": "@{base64('Pour Two Cups of Coffee')}"
+                    },
+                    "host": {
+                        "connection": {
+                            "name": "@parameters('$connections')['servicebus']['connectionId']"
+                        }
+                    },
+                    "method": "post",
+                    "path": "/@{encodeURIComponent(encodeURIComponent('25DaysOfServerless'))}/messages",
+                    "queries": {
+                        "systemProperties": "None"
+                    }
+                },
+                "runAfter": {
+                    "Wait_25_for_Coffee_to_Brew": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "ApiConnection"
+            },
+            "Send_message_2": {
+                "inputs": {
+                    "body": {
+                        "ContentData": "@{base64('Light the Candles')}"
+                    },
+                    "host": {
+                        "connection": {
+                            "name": "@parameters('$connections')['servicebus']['connectionId']"
+                        }
+                    },
+                    "method": "post",
+                    "path": "/@{encodeURIComponent(encodeURIComponent('25DaysOfServerless'))}/messages",
+                    "queries": {
+                        "systemProperties": "None"
+                    }
+                },
+                "runAfter": {
+                    "Delay": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "ApiConnection"
+            },
+            "Send_message_3": {
+                "inputs": {
+                    "body": {
+                        "ContentData": "@{base64('Deliver coffee to Mom & Dad')}"
+                    },
+                    "host": {
+                        "connection": {
+                            "name": "@parameters('$connections')['servicebus']['connectionId']"
+                        }
+                    },
+                    "method": "post",
+                    "path": "/@{encodeURIComponent(encodeURIComponent('25DaysOfServerless'))}/messages",
+                    "queries": {
+                        "systemProperties": "None"
+                    }
+                },
+                "runAfter": {
+                    "Delay_2": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "ApiConnection"
+            },
+            "Send_message_4": {
+                "inputs": {
+                    "body": {
+                        "ContentData": "@{base64('Fill Two Cups of Coffee')}"
+                    },
+                    "host": {
+                        "connection": {
+                            "name": "@parameters('$connections')['servicebus']['connectionId']"
+                        }
+                    },
+                    "method": "post",
+                    "path": "/@{encodeURIComponent(encodeURIComponent('25DaysOfServerless'))}/messages",
+                    "queries": {
+                        "systemProperties": "None"
+                    }
+                },
+                "runAfter": {
+                    "Delay_3": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "ApiConnection"
+            },
+            "Send_message_5": {
+                "inputs": {
+                    "body": {
+                        "ContentData": "@{base64('Re-light the candles')}"
+                    },
+                    "host": {
+                        "connection": {
+                            "name": "@parameters('$connections')['servicebus']['connectionId']"
+                        }
+                    },
+                    "method": "post",
+                    "path": "/@{encodeURIComponent(encodeURIComponent('25DaysOfServerless'))}/messages",
+                    "queries": {
+                        "systemProperties": "None"
+                    }
+                },
+                "runAfter": {
+                    "Delay_4": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "ApiConnection"
+            },
+            "Send_message_6": {
+                "inputs": {
+                    "body": {
+                        "ContentData": "@{base64('Deliver coffee to Sister & Brother')}"
+                    },
+                    "host": {
+                        "connection": {
+                            "name": "@parameters('$connections')['servicebus']['connectionId']"
+                        }
+                    },
+                    "method": "post",
+                    "path": "/@{encodeURIComponent(encodeURIComponent('25daysofserverless'))}/messages",
+                    "queries": {
+                        "systemProperties": "None"
+                    }
+                },
+                "runAfter": {
+                    "Delay_5": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "ApiConnection"
+            },
+            "Send_message_7": {
+                "inputs": {
+                    "body": {
+                        "ContentData": "@{base64('Return to the kitchen, take a break!')}"
+                    },
+                    "host": {
+                        "connection": {
+                            "name": "@parameters('$connections')['servicebus']['connectionId']"
+                        }
+                    },
+                    "method": "post",
+                    "path": "/@{encodeURIComponent(encodeURIComponent('25daysofserverless'))}/messages",
+                    "queries": {
+                        "systemProperties": "None"
+                    }
+                },
+                "runAfter": {
+                    "Delay_6": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "ApiConnection"
+            },
+            "Wait_25_for_Coffee_to_Brew": {
+                "inputs": {
+                    "interval": {
+                        "count": 25,
+                        "unit": "Minute"
+                    }
+                },
+                "runAfter": {},
+                "type": "Wait"
+            }
+        },
+        "contentVersion": "1.0.0.0",
+        "outputs": {},
+        "parameters": {
+            "$connections": {
+                "defaultValue": {},
+                "type": "Object"
+            }
+        },
+        "triggers": {
+            "manual": {
+                "inputs": {
+                    "schema": {}
+                },
+                "kind": "Http",
+                "type": "Request"
+            }
+        }
+    },
+    "parameters": {
+        "$connections": {
+            "value": {
+                "servicebus": {
+                    "connectionId": "/subscriptions/8e2d6ed5-9f1f-4d69-8372-af5860888f0b/resourceGroups/ResGrp-Default/providers/Microsoft.Web/connections/servicebus",
+                    "connectionName": "servicebus",
+                    "id": "/subscriptions/8e2d6ed5-9f1f-4d69-8372-af5860888f0b/providers/Microsoft.Web/locations/northcentralus/managedApis/servicebus"
+                }
+            }
+        }
+    }
+}
