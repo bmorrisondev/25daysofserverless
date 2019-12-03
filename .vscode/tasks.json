@@ -7,7 +7,7 @@
             "problemMatcher": "$func-watch",
             "isBackground": true,
             "options": {
-                "cwd": "${workspaceFolder}/Day1"
+                "cwd": "${workspaceFolder}/functions"
             }
         }
     ]
