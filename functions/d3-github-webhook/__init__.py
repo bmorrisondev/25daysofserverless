@@ -14,24 +14,21 @@ from azure.storage.blob import BlockBlobService
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
     png_base_path = "https://raw.githubusercontent.com/bmorrisondev/25daysofserverless/master"
-    logging.info('Python HTTP trigger function processed a request.')
 
     try: 
         webhook = req.get_json()
-
         images_to_add = []
-
         regex_pattern = '[^\/]*$'
 
-        for commit in webhook.get('commits'):
-            for added_item in commit.get('added'):
-                if added_item.endswith("png"):
-                    image_item = ImageItem()
+        for commit in webhook.get('commits'): # Iterate through all the commits in the push
+            for added_item in commit.get('added'): # Iterate through added items
+                if added_item.endswith("png"): # Find items with png
+                    image_item = ImageItem() # Create the object to store name and url
                     regexObj = re.search(regex_pattern,added_item)
-                    image_item.name = regexObj[0]
+                    image_item.name = regexObj[0] # Parse out the file name
                     image_item.url = f"{png_base_path}/{added_item}"
                     images_to_add.append(image_item)
-                    logging.info(f'found {image_item.name} at {image_item.url}')
+                    logging.info(f'found {image_item.name} at {image_item.url}') 
 
         
         # Copy files to Azure Storage Account, create URLs for the blobs and return for saving to Cosmo
@@ -47,8 +44,8 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         blob_urls = []
         for file in images_to_add:
             blob_name = f"{azure_path}/{random_string()}_{file.name}"
-            block_blob_service.copy_blob(container_name, blob_name, file.url)
-            blob_url = block_blob_service.make_blob_url(container_name, blob_name)
+            block_blob_service.copy_blob(container_name, blob_name, file.url) # Download the file into ASA
+            blob_url = block_blob_service.make_blob_url(container_name, blob_name) # Get a direct link to the blob in ASA
             blob_urls.append(blob_url)
 
         # Write URLs to Cosmo using Mongo API
@@ -59,7 +56,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
         for url in blob_urls:
             record = { "url": url }
-            images_collection.insert_one(record)
+            images_collection.insert_one(record) # Add the URL to the Cosmo DB collection
         
         return func.HttpResponse("ok")
     
