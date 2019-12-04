@@ -11,9 +11,9 @@ from .ImageItem import ImageItem
 import azure.functions as func
 from azure.storage.blob import BlockBlobService
 
-png_base_path = "https://raw.githubusercontent.com/bmorrisondev/25daysofserverless/master"
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
+    png_base_path = "https://raw.githubusercontent.com/bmorrisondev/25daysofserverless/master"
     logging.info('Python HTTP trigger function processed a request.')
 
     try: 

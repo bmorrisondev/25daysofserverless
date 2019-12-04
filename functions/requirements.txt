@@ -2,4 +2,3 @@ azure-functions
 requests
 pymongo
 azure.storage
-re
