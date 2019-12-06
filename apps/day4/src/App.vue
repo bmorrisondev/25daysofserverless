@@ -28,12 +28,12 @@
       <v-spacer></v-spacer>
 
       <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
+        href="#"
         target="_blank"
         text
       >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
+        <span class="mr-2">New Task</span>
+        <v-icon>mdi-plus</v-icon>
       </v-btn>
     </v-app-bar>
 
@@ -48,11 +48,9 @@ import Main from './components/Main'
 
 export default {
   name: 'App',
-
   components: {
     Main
   },
-
   data: () => ({
     //
   })

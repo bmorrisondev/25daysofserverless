@@ -1,7 +1,17 @@
 <template>
   <v-container>
     <v-layout text-center wrap>
-      <v-flex xs12>
+      <TaskCard
+        v-for="task in tasks"
+        v-bind:key="task"
+        :title="task.title"
+      />
+
+      <!-- <ul>
+        <li v-for="task in tasks" v-bind:key="task">{{ task.title }}</li>
+      </ul> -->
+
+      <!-- <v-flex xs12>
         <v-card
           class="mx-auto"
           max-width="640"
@@ -23,21 +33,40 @@
           </v-list-item-group>
         </v-list>
         </v-card>
-      </v-flex>
+      </v-flex> -->
     </v-layout>
   </v-container>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
+// Components
+import TaskCard from './TaskCard'
+
 export default {
   name: 'Main',
+  components: {
+    TaskCard
+  },
+  computed: {
+    ...mapGetters([
+      'getTasks'
+    ])
+  },
   data: () => ({
-    item: 1,
-    items: [
-      { text: 'Real-Time', icon: 'mdi-clock' },
-      { text: 'Audience', icon: 'mdi-account' },
-      { text: 'Conversions', icon: 'mdi-flag' }
+    tasks: [
+      { title: 'this is my thing' },
+      { title: 'this is my other thing' }
     ]
-  })
+  }),
+  created: function () {
+    // this.fetchTaskData()
+  },
+  methods: {
+    ...mapActions([
+      'fetchTaskData'
+    ])
+  }
 }
 </script>

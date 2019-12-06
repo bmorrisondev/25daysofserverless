@@ -1,24 +1,20 @@
 import logging
+import pymongo
+import os
 
 import azure.functions as func
 
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
-    logging.info('Python HTTP trigger function processed a request.')
-
-    name = req.params.get('name')
-    if not name:
-        try:
-            req_body = req.get_json()
-        except ValueError:
-            pass
-        else:
-            name = req_body.get('name')
-
-    if name:
-        return func.HttpResponse(f"Hello {name}!")
-    else:
+    try:
+        mongo_cs = os.environ["CosmoMongoApiCs"]
+        cosmo_client = pymongo.MongoClient(mongo_cs)
+        db = cosmo_client["day4"]
+        tasks_collection = db["tasks"]
+        tasks = tasks_collection.find({"isDeleted": { "$ne": "true" }})
+        func.HttpResponse(tasks)
+    except Exception as err:
         return func.HttpResponse(
-             "Please pass a name on the query string or in the request body",
-             status_code=400
+            f"{err}",
+            status_code = 500
         )
